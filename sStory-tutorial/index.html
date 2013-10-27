@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title></title>
+	<!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+	<link rel="shortcut icon" href="/favicon.ico">
+	<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" media="all" href=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+
+	<link rel="stylesheet" href="lib/style.css" type="text/css" media="screen" title="Primary Stylesheet" charset="utf-8">
+
+	<!-- Bring in animate.css | http://daneden.me/animate/ -->
+	<!--<link rel="stylesheet" href="animate.css" type="text/css" media="screen" title="no title" charset="utf-8"> -->
+
+	<!-- Bring in jQuery first, lots of other stuff depends on it -->
+	<script src="lib/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="lib/js/jquery.hoverintent.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- And underscore | http://documentcloud.github.com/underscore/ -->
+	<script src="lib/js/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- And D3 | https://github.com/mbostock/d3/wiki/API-Reference -->
+	<script src="lib/js/d3.v2.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="lib/js/ICanHaz.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="lib/js/storyjs-embed.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="lib/timeline.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
+	<script src="lib/js/jquery.scrollorama.js" type="text/javascript" charset="utf-8"></script>
+
+	<!-- bxSlider Javascript file -->
+	<script src="lib/js/jquery.bxslider.js"></script>
+	<!-- bxSlider CSS file -->
+	<link href="lib/jquery.bxslider.css" rel="stylesheet" />
+
+	<!-- And the Open Sans Google Webfont | https://www.google.com/webfonts#UsePlace:use/Collection:Open+Sans
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,700italic,400,700,800,300' rel='stylesheet' type='text/css'> -->
+
+	<link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic|PT+Sans+Narrow:400,700' rel='stylesheet' type='text/css'>
+
+	<script src="lib/js/sStory.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="lib/style.css" type="text/css" media="screen" title="Primary Stylesheet" charset="utf-8">
+</head>
+
+<body>
+<div id="nav">
+
+</div>
+<div id="nav-expand">&nbsp;</div>
+
+<div id="container">
+
+</div>
+
+<script id="image" type="text/html">
+<h2 id="header-{{count}}">{{{ title }}}</h2>
+</script>
+
+<script id="image2" type="text/html">
+<h2 id="header-{{count}}">{{{ title }}}</h2>
+<div class="imagecaption"><p>{{{ caption }}}</p></div>
+</script>
+
+<script id="image3" type="text/html">
+<h2 id="header-{{count}}">{{ title }}</h2>
+<div class="imagecaption longcaption"><p>{{{ caption }}}</p></div>
+</script>
+
+<script id="vimeo" type="text/html">
+<div class="video-container">
+<iframe src="{{ url }}" width="400" height="300" frameborder="0" wmode="transparent" webkitAllowFullScreen mozallowfullscreen allowFullScreen><param name="wmode" value="opaque"></iframe>
+</div>
+{{#caption}}
+<div class="video-caption">
+{{caption}}
+</div>
+{{/caption}}
+</script>
+
+<script id="soundcloud" type="text/html">
+<div class="soundcloud-container">
+{{#title}}
+<h2>{{ title }}</h2>
+{{/title}}
+		{{{ embed }}}
+</div>
+</script>
+
+<script id="text" type="text/html">
+<div class="text-container">
+{{#title}}
+<h2>{{ title }}</h2>
+{{/title}}
+
+{{{ text }}}
+</div>
+</script>
+
+<script id="gist" type="text/html">
+{{#title}}
+<h2>{{ title }}</h2>
+{{/title}}
+{{#files}}
+	<div class="gist-container">
+	<h4>{{filename}}</h4>
+	<pre>
+	{{content}}
+	</pre>
+	</div>
+{{/files}}
+</script>
+
+<script id="slideshow" type="text/html">
+{{#title}}
+<h2>{{ title }}</h2>
+{{/title}}
+
+<ul class="slider">
+{{#slides}}
+<li><img src="{{url}}" title="{{caption}}"/></li>
+{{/slides}}
+</ul>
+</script>
+
+
+
+<script id="navbarsection" type="text/html">
+<a class="nav-section" href="#section-{{count}}" id="nav-section-{{count}}"><img src="lib/images/type_icons/{{type}}.png" height="16px" width="16px" class="type-icon" /> {{ title }}</a>
+</script>
+
+<script type="text/javascript" charset="utf-8">
+
+var examplesections = [{
+    "title": "The Book On Paul LePage </ br>"
+    ,"type": "image"
+	,"url": "http://pinetreewatchdog.org/the-biggest-baddest-person-around-crashes-augustas-nicey-nicey-club/?all=1"
+	,"bgFixed": true
+},
+{
+    "title": "The ‘biggest, baddest person around’ crashes Augusta’s ‘nicey-nicey’ club"
+    ,"type": "text"
+    ,"url": "http://pinetreewatchdog.wpengine.netdna-cdn.com/files/2013/10/the-book-LePage-header.jpg"
+    ,"text":"Crema is a Portland waterfront café that boasts of coffee roasted in small batches and pastries baked from scratch with “natural, local and organic ingredients.” As much as any place in liberal Portland, it is a gathering spot for a city whose voters have no use for Gov. Paul LePage. Only 19 percent of Portland voters went for LePage in the 2010 election – there was no place he did worse.<br><br>This summer, Dave Dearborn was sitting at a table in the high-ceilinged café reading a book and nursing a coffee. Now, more than two years into the Republican’s tenure, what did he think of the governor?<br><br>“He outright embarrasses us with the idiotic things he says,” Dearborn said.<br><br>He said that after he finished his coffee, he was going up to the headquarters of a different candidate for governor, Eliot Cutler.<br><br>Cutler is the independent and former Democrat who came in a close second to LePage and is hoping to do better in 2014. But he will be competing with a well-known Democrat, U. S. Rep. Mike Michaud, and LePage to be the governor.<br><br>Dearborn said LePage “plays on people’s ignorance. He has a bombastic approach to politics that appeals to people who are willfully ignorant.”<br><br>About 90 miles away sits a Maine town where LePage’s brand of politics went over better than it did in any other community of any size in the state.<br><br>In Albion, a rural town in central Maine, LePage won by a landslide, with some to spare. He got nearly 61 per cent of the vote from this town of 2,000.<br><br>Locals there get their morning coffee at the Albion Corner Store at 14 Main St., where you can also all fill up your pickup and grab a slice and a Pepsi.<br><br>At lunchtime in August, men in jeans and tee-shirts and some wearing fluorescent safety vests hurried in, joked with the women behind the lunch counter, ordered something “to go” and headed back to the job site.<br><br>One of them was Brent Dow, 35, owner of a metal roofing company with four employees.<br><br>“He’s kind of like me,” Dow said, “He jokes a lot. He makes a lot of comments, but he stands by them. And some of them I agree with.”<br><br>What matters more to him, he said, was that LePage “thinks like a worker … he’s more for the working person than a person who has a state job or who found a way to stay on state benefits … He seems to go after those people.”<br><br>Parris Varney, who owns the store with his wife Kathy, echoed Dow’s assessment of the governor.<br><br>“To me, he’s not a typical politician. He’s a little rough around the edges, but he says what other people think, but they don’t say it,” he said. “He’s a regular guy.”<br><br>The customers in Crema and the Albion Corner Store may be miles apart in their views, but they have something in common: They are representative of the public debate over the governor.<br><br>Whether you are interviewing folks at coffee shops, reading letters to the editor and online comments or news coverage, most of the LePage debate has been about the sizzle, not the steak. About what he says and how he says it, not what he’s done and not done.<br><br>The Maine Center for Public Interest Reporting has interviewed LePage three times and more than two dozen others – from voters to political insiders to LePage’s friends and enemies – to develop a fuller picture of the state’s 74th governor."
+},
+
+{
+    "type": "image2"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"shade": "dark"
+    ,"caption": "The Santa Susana facility in 1958"
+},
+{
+    "title": "Each day, EPA staff members sweep the area using forklifts that hold detectors - four-by-four steel boxes containing sodium iodide crystals that glow when they’re struck by radioactive energy."
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text":"What emerged was the story of the man behind the headlines, headlines that reflect one side -- but one side only -- of the state’s chief executive.<br><br>The picture also includes the stubborn former business consultant who has made foundational changes in the state’s fiscal status; the populist who reflects the pent-up frustration of working people with what they see as Maine’s profligate spending; the easily-frustrated CEO with little patience for the slow grind of the legislative process.<br><br>And perhaps most telling: the anti-politician with his disdain for the sometime necessary tact required of political leaders, whose attitude may well be getting in the way of fulfilling more of his agenda.<br><br>“I’m a lightning rod,” LePage said in one of the interviews. He attracts -- perhaps even courts – extreme reactions. He’s been called everything from a bully to a moron by his detractors, while those closest to him see a personable, self-deprecating man who reads every bill, study and document on his desk.<br><br>The middle ground on Paul LePage is a slim sandbar in the torrent of opinions, but among those few who stand there is Jill Goldthwait, a former independent state senator from Bar Harbor.<br><br>“I’m sure that I don’t know any others (politicians) that are as fearless about political fallout” from their comments and positions as LePage, she said. His “single-mindedness has served him well,” she said, but when his comments turn crude “it interferes with his ability to accomplish his agenda.”<br><br>To Tony Payne, a self-described fiscal conservative and the one-time head of the Alliance for Maine’s Future, a pro-business group, LePage “has moved the dial on policy more than anyone in my lifetime, as no governor has, on more fronts – simultaneously.”<br><br>Karen Heck, who succeeded LePage as mayor of Waterville, represents those disgusted with him. She said the governor’s well-publicized comments show a lack of self-control that damages the state’s image to potential new businesses – his supposed calling card.<br><br>Citing what she called LePage’s “toxic” childhood, Heck said, “He’s a scared little boy who wishes his mother could have protected him and his father loved him” and learned to survive by being “the biggest, baddest person around.”<br><br>LePage, though, doesn’t see himself that way.<br><br>“People think I’m a bully, but it’s just that I get a little offended when they get condescending.” That’s when, he said, “I get a little condescending to them.”<br><br>With the exception of his hardcore followers, there is little support for his most extreme remarks, from declaring that the president of the United States could “go to hell” to going on TV to say that a legislator who opposed his budget was “the first one to give it to the people of Maine without providing Vaseline.”<br><br>People who spend time with him say there is another LePage the public would be surprised to see: studious, respectful – but always to the point.<br><br>Emily Cain is the current Democratic state senator from Orono who was House minority leader during LePage first two years in office. She worked closely with LePage on ethics reform and domestic violence legislation.<br><br>In her meetings with the governor, Cain said, “He’s usually very focused and determined. The governor has never been a bully to me and, quite frankly, I would not have stood for it.”<br><br>In two sit-down interviews and one car trip from Augusta to Portland and back – a total of about six hours – the LePage of the screaming headlines showed up only once. But the one time offers an explanation for all the other outbursts:<br><br>Replying to a question about working with legislators, he said: “I hate politics,” his voice rising, the “hate” coming out in bold, all caps. “I just hate having to compromise my principles.”<br><br>chapter 1 graphicFor most of the past 30 years, Maine voters were pretty clear what they wanted in the State House – Democrats, or independents with a liberal bent."
+    },
+
+
+{
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://www.rocketdynearchives.com/images/643_SSFL_Rocketdyne_archives_boeing_ssfl_santa_susana_field_lab_nuclear_laboratory.jpg"
+    ,"caption": "The Santa Susana Field Lab lies between two populous areas on the outskirts of LA."
+},
+
+{
+    "title": "<br><br> “No! We’re all gonna drop dead!” Aycock said. She let out a riotous laugh."
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "“No, of course it’s safe.”  I laughed, too, and shuffled nervously toward the car. </ br><br><br>Dan Hirsch, a nuclear policy lecturer at the University of California at Santa Cruz, describes the operations at Santa Susana in the ‘50s as the cavalier actions of “nuclear cowboys.” Descriptions of the site’s operations read like an apocalyptic movie script: Toxic waste was burned in open, unprotected pits. Sometimes, workers shot barrels of chemicals with rifles in order to burn them, releasing deadly fumes into the air. </ br><br><br>“There was a certain laissez-faire attitude towards safety,” Dempsey said. “After all, it was the Cold War.”</ br><br><br> In cleaning up the sodium reactor accident, workers crawled stomach-first along the contaminated floor, fishing for partially-melted fuel rods. Multiple workers told local activists that books, furniture and clothing from inside the contaminated buildings were heaped outside in piles to decay. Occasionally, the workers used Kotex sanitary pads to scrub down the reactor because their brooms and sponges would become contaminated with radiation too quickly. </ br><br><br>Boeing, which owns part of the land, has challenged SB 990 in court because it says the agricultural cleanup standard is stricter than that expected of other comparable sites. The company said they plan to use the land as a park, which would mean the radiation levels could be left at above-background levels because people wouldn’t be receiving a constant radiation dose from living there. </ br><br><br>According to Boeing, the waste-management practices were standard for their time.  “In the '50s and '60s, the atmosphere was different,” said Kamara Sams, a Boeing spokeswoman.</ br><br><br> She said burning potentially hazardous waste in open pits was standard operating procedure, and not just at Santa Susana. “We were in a race with the Soviets. There were certain practices, like burn pits, that were standard, and [waste] disposal sometimes meant land-filling on site.” </ br><br><br>The dubious practices at Santa Susana went largely unmonitored until the late 1980s. That’s when Chernobyl showed the world what happens when nuclear energy goes horribly wrong, and the Department of Energy launched a campaign to inspect nuclear reactors across the U.S. The review of Santa Susana found poor safety practices and profound contamination, and in 1989 Gregg Dempsey surveyed the land and confirmed those suspicions. </ br><br><br>Dempsey also found that Rocketdyne was dishonest in monitoring radiation levels. Rocketdyne workers washed vegetation samples and filtered water samples prior to testing them.  “If you didn’t want to find radiation, [washing and filtering] was a good way to do it,\" Dempsey said.</ br><br><br>The body naturally repairs damage from small amounts of radiation, but large amounts can mutate cells, causing cancer years later.   We absorb low amounts of radiation from space when we ride in airplanes or climb on top of mountains. We get even smaller doses from eating bananas or brazil nuts, because both have trace amounts of radioactive elements in them. </ br><br><br>Humans absorb about .24 rems of radiation per year, but limits for workers in nuclear power plants are higher, about 5 rem per year. </ br><br><br>Workers at Santa Susana may have absorbed much more than that, but there’s no telling exactly how much because entire boxes of the workers’ dosimeters, devices that measure radiation, were lost or hidden.  In the 1990s, researchers from UCLA found that the more Rocketdyne workers were exposed to both radiation and chemicals at the site, the more likely they were to die from cancer. </ br><br><br>Local residents also say they’ve been sickened by the site. Former worker James Dodge, who lives in Simi Valley, said he knows of roughly 30 cases of cancer within 500 feet of his house. Though Dodge is healthy, his son was diagnosed with testicular cancer in 2008. </ br><br><br> “Did he get it from the hill?” Dodge said. “Shoot, I don’t know.” </ br>"
+
+
+    },
+
+{
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://ssflpanel.org/wp-content/uploads/2013/04/Wrench-2.jpg"
+    ,"caption": "Workers at the facility after the Santa Susana Field Lab's sodium reactor meltdown"
+},
+
+{
+    "title": "<br><br> Jan Beyea, the nuclear reactor researcher, found an average of 50 cancers in the community related to the sodium reactor accident alone."
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "<br><br>But epidemiologists who’ve studied potential cancers in the local community say it’s hard to say how many cases were caused by the activities at Santa Susana. Most of the gasses from the sodium reactor dispersed about 60 miles away - and that’s where many of the cancers in residents were found. </ br><br><br>But that’s also where the population is denser, and therefore one would expect more cases of cancer in any event.  Jan Beyea, the nuclear reactor researcher, found an average of 50 cancers in the community related to the sodium reactor accident alone. </ br><br><br>But he doesn’t know if that figure is accurate because “we're not sure about the size of the release,” he said. </ br><br><br>But even if  they find no radiation at Santa Susana, cleanup officials would still be left with the site’s underground stew of chemical toxins. Throughout the 1980s, Rocketdyne employees would pour the leftover chemical TCE onto the ground in the course of testing jet engines. </ br><br><br>“The TCE would soften up the asphalt,” said Dodge. “So I always put mine in a bread pan.” </ br><br><br>Today, thousands of gallons of TCE and other chemicals remain in the site’s soil and groundwater.  TCE causes everything from liver cancer to leukemia. Another chemical used in the engine tests called perchlorate disrupts thyroid function in even tiny concentrations, and it’s been found in multiple wells near the site. </ br><br><br>Knowing what’s up there, residents are worried about what’s coming down. </ br><br><br> “This stuff is on a mountaintop,” Hirsch said. “Gravity being what it is, the contamination that’s on that plateau wants to move on to the people below.” </ br><br><br>In response, the people below formed something of a cleanup militia. Led by Hirsch, they pressured lawmakers for over 15 years to restore the site to its original state -  tranquil farmland. With the passage of Senate Bill 990, they finally secured the promise of a cleanup in 2007, but it took three years of legal wrangling between Boeing, the DOE and NASA before the EPA was finally able to begin soil testing in October. </ br><br><br> Now, they wait to see what the EPA digs up.</ br>"
+
+
+    },
+    
+    {
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://www.enviroreporter.com/wp-content/uploads/2009/07/Runkle-Canyon-borders-SSFL.jpg"
+    ,"caption": "The lab is not in an isolated area -- it's in the center of a major population area."
+},
+
+{
+    "title": "<br><br> Jan Beyea, the nuclear reactor researcher, found an average of 50 cancers in the community related to the sodium reactor accident alone."
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "<br><br>As the cleanup has dragged on, the activists have broken into splinter factions, debating about the best way to de-toxify the mountain. Walsh is grateful to Hirsch for helping pass a cleanup law, but she thinks the bill might be going too far with its plan for total removal of any contaminated soil. </ br><br><br> She, along with a few others, have called the intensive soil removal “revenge science,” meaning that they think the aim is to get revenge on Boeing for polluting the land in the first place. Instead, she and some of the others in her group would like to see a cleanup that purifies the soil while removing less of it - a strategy known as “in situ” remediation. </ br><br><br>It would mean planting various types of flora, like mustard plants and willow trees, that have been shown to eventually break down chemical compounds. One scientist who studied Santa Susana said certain kinds of bacteria can be used to metabolize TCE, the engine degreaser, by eating up its chlorine until only the benign gas ethelyne remains. </ br><br><br>Other experts agree that the current radiation levels at the site may prove to be too low to merit soil excavation. According to the EPA’s figures, the site gives off about half a rem of radiation per year. Cleaning the soil up to background may not be worthwhile, some argue, because the term “background” has a lot of statistical variation and might be too broad. </ br><br><br>“You’re going to be cleaning everything, and some of it might be natural,” said Abe Weitzberg, an engineer who once worked at the site and has been close to the debate for years. Like Walsh, he thinks the site should be made clean enough to be park land, where people could visit occasionally, but not live. </ br><br><br> And, since most of the health risk fell on the site’s former employees and, in some cases, the people who lived near the site at the time of the SRE incident, some say its not worth it to meticulously tear apart the mountain if there are only traces of radiation left in the present-day. </ br><br><br>“They should contribute to cancer research or something that will end up reducing cancer deaths in the future instead,” Beyea said. “I don't think someone should cart away soil for revenge. You can make things worse if you do things like this.” </ br><br><br>The problem? Less excavation is exactly what’s favored by Boeing. But Boeing and their predecessors have lost credibility in the community, according to some activists, because of Santa Susana scientists' past secrecy. And now, total excavation might be the only way to reassure worried residents that they aren’t getting cancer from the mountain next door. </ br><br><br>Even after the EPA finishes soil testing in the middle of next year, there still won’t be much certainty about the best way forward for Santa Susana, or about what it has done to public health as its toxins have laid simmering for 50 years. </ br>"
+
+    },
+
+{
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://www.rocketdynearchives.com/images/643_J_2_Firing_Rocketdyne_archives_boeing_ssfl_santa_susana_field_lab_nuclear_laboratory.jpg"
+    ,"caption": "The lab continued operating after the reactor accident. Rockets used in the US space program were tested there."
+},
+
+{
+    "title": "<br><br> If you look out that window, you can see it."
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "<br><br>\"If you look out that window, you can see it,\" said Christina Walsh, a thin, blond-haired woman with a booming voice and big smile. She points out her back window to her yard, which looks out onto a peaceful valley and then, a few miles away, to Santa Susana itself. If there is, in fact, any toxic goo coming off the mountain, she is at ground zero. </ br><br><br>Soon after she moved into her house in the West Hills in 2001, she saw a flier at her karate studio asking, \"Did you know there was a nuclear meltdown here in 1959?\" </ br><br><br>Recently, one of her neighbors told her that there’s cancer in half the houses on her street. Walsh, who is healthy, wonders if it's only a matter of time. </ br><br><br>\"I'm a ticking time bomb,\" she said. </ br><br><br> Walsh gesticulates wildly, even with a bandaged hand (kitchen accident) and a busted shoulder (horse-riding accident). She’s the sort of person who goes to great lengths for a cause, like hopping a fence at Santa Susana, taking 30,000 pictures of contamination and showing them to the EPA. Over the years she has pored over thousands of pages of documents to find out how the spill might have affected her community. </ br><br><br>Since 2001, she’s run a group called CleanUpRocketydyne.org, which lobbied with Dan Hirsch’s organization, the Committee to Bridge the Gap, for the passage of SB 990. </ br><br><br>Hirsch convinced the state to use California’s standards for the cleanup, which are even stricter than the EPA’s standards for the so-called “superfund” sites - the most polluted areas of the nation. In effect, the cleanup - which involves removing any soil above background levels of chemical or radioactive substances - should effectively eliminate any cancer risk for residents by 2017. </ br><br><br>Carting away all of the contaminated soil would be the only way to get rid of the longer-lasting radioactive elements, if they’re found. </ br><br><br> “Some radionuclides are very short-lived, but some take a quarter billion years to break down,” said David Lochbaum, a nuclear specialist with the Union of Concerned Scientists. </ br><br><br>Cesium, for example, has a 28-year half-life, or the time it takes for half of its atoms to die off. But uranium or plutonium will continue being radioactive for tens of thousands of years. </ br><br><br> But excavation is also a difficult and dirty task. The levels of contamination would add up to an estimated 1.6 million cubic yards of soil, or 100,000 dump-truck loads, which would mean a soil-toting dump truck would chug past the Simi Hills’ homes every hour for months. </ br><br><br>There’s also no clear destination for the soil that gets scooped out. Chemical waste can go to lower-level landfills, but only a few dumps in America accept radioactive materials. Transporting soil there is expensive and dangerous.</ br><br><br> “There\'s no way to resolve this ever if we have nowhere to put it,” Walsh said. </ br>"
+
+},
+
+{
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://www.rocketdynearchives.com/images/643_Buz_Aldrin_at_BRAVO_3_rocketdyne_archives_boeing_ssfl_santa_susana_field_lab_nuclear_laboratory.jpg"
+    ,"caption": "Buzz Aldrin, visiting the Rocketdyne Santa Susana Field Lab site in January of 1968."
+},
+
+{
+    "title": "<br><br> As the cleanup has dragged on, the activists have broken into splinter factions"
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "<br><br>As the cleanup has dragged on, the activists have broken into splinter factions, debating about the best way to de-toxify the mountain. Walsh is grateful to Hirsch for helping pass a cleanup law, but she thinks the bill might be going too far with its plan for total removal of any contaminated soil. </ br><br><br> She, along with a few others, have called the intensive soil removal “revenge science,” meaning that they think the aim is to get revenge on Boeing for polluting the land in the first place. Instead, she and some of the others in her group would like to see a cleanup that purifies the soil while removing less of it - a strategy known as “in situ” remediation. </ br><br><br>It would mean planting various types of flora, like mustard plants and willow trees, that have been shown to eventually break down chemical compounds. One scientist who studied Santa Susana said certain kinds of bacteria can be used to metabolize TCE, the engine degreaser, by eating up its chlorine until only the benign gas ethelyne remains. </ br><br><br>Other experts agree that the current radiation levels at the site may prove to be too low to merit soil excavation. According to the EPA’s figures, the site gives off about half a rem of radiation per year. Cleaning the soil up to background may not be worthwhile, some argue, because the term “background” has a lot of statistical variation and might be too broad. </ br><br><br>“You’re going to be cleaning everything, and some of it might be natural,” said Abe Weitzberg, an engineer who once worked at the site and has been close to the debate for years. Like Walsh, he thinks the site should be made clean enough to be park land, where people could visit occasionally, but not live. </ br><br><br> And, since most of the health risk fell on the site’s former employees and, in some cases, the people who lived near the site at the time of the SRE incident, some say its not worth it to meticulously tear apart the mountain if there are only traces of radiation left in the present-day. </ br><br><br>“They should contribute to cancer research or something that will end up reducing cancer deaths in the future instead,” Beyea said. “I don't think someone should cart away soil for revenge. You can make things worse if you do things like this.” </ br><br><br>The problem? Less excavation is exactly what’s favored by Boeing. But Boeing and their predecessors have lost credibility in the community, according to some activists, because of Santa Susana scientists' past secrecy. And now, total excavation might be the only way to reassure worried residents that they aren’t getting cancer from the mountain next door. </ br><br><br>Even after the EPA finishes soil testing in the middle of next year, there still won’t be much certainty about the best way forward for Santa Susana, or about what it has done to public health as its toxins have laid simmering for 50 years. </ br><br><br>Every nuclear disaster leaves a different type of footprint on the land, and all are notoriously difficult to undo. </ br><br><br>“It’s a hell of a lot easier to spill stuff than it is to clean it up,” Hirsch said. </ br><br><br>Of the 100 similar nuclear facilities in the country, Santa Susana is in the middle range as far as environmental damage. Savannah River in South Carolina, Rocky Flats in Denver and Hanford in Washington state are all far worse, according to Hirsch. </ br><br><br>But there’s one key difference between those sites and Santa Susana: the latter is in the middle of a major metropolitan area. The site’s groundwater flows under Simi Valley homes, and it feeds directly into the L.A. River. </ br><br><br>That means the unsafe practices at Santa Susana didn’t just sicken its workers, they landed Santa Susana’s ominous refuse squarely in Los Angeles’ backyard.</ br></ br>"
+
+    },
+
+{
+    "title": "<br><br> How And Why This Was Made"
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "This is a fullscreen, scrolling, magazine-style take on <a href=\"http://www.neontommy.com/news/2011/01/santa-susana-nuclear-site-finally-path-clean-its-toxic-mess\">an excellent story written by Olga Khazan for NeonTommy</a>, a site created by the USC Annenberg j-school. <BR><BR> Ms. Khazan wrote <a href =\"http://www.theatlantic.com/education/archive/2013/10/should-journalism-schools-require-reporters-to-learn-code-no/280711/\">an article refuting the idea that journalists should learn to code in The Atlantic recently</a>.  It's very funny and sharply written, and worth a read.  <br><BR>  I would have agreed with Ms. Khazan a few years ago, largely because I picked the same bad starting points she lampoons in the article.  It's not a great idea for a journalist to learn to code from a site like Codecademy.  You know how high-school foreign language courses leave a lot of people with the ability to say \"My aunt is on the roof\" in French, but gives them no capability to do anything remotely practical?  Many learn-to-code sites do the equivalent, only you can tell someone that your variable is on the roof in Ruby or Javascript.  They drop any aspiring journalist off far away from anything that would be useful for them.  <br><BR>  But I believe that it's a mistake to turn away from the possibilities of learning some code, and here's why.  Take a look at the following picture.  It's what Ms. Khazan's story looked like when it was originally published on the web: a huge wall of text, crammed into an overly narrow central column.  In essence, Ms. Khazan's work is trapped in the publication's CMS, which is a bit like putting a Cezanne drawing in a macaroni-decorated frame produced by an enthusiastic preschooler."
+    },
+    
+    {
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://dataforradicals.com/wp-content/uploads/2013/10/ssfl-origina-1024x507.jpg"
+    ,"caption": "Feature articles should probably get a different treatment than blog entries."
+},
+
+{
+    "title": "<br><br> Did I Have To Learn To Code To Do This?"
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "No, not really.  The code that runs this page is called <a href =\"https://github.com/ejfox/sStory\">sStory</a>, and it was written by a Berkeley j-school grad named E.J. Fox.  What I needed to know to get this working was A) that there's lots of code that's already written that's useful for journalists out there, B) where to find it, and critically, C) how to make it work for me. <BR><BR> In this case, that meant understanding how to edit the JSON file that sStory looks at to find the content of the story being rendered on the page.  To make this, I edited a text file. Scroll down to take a look at a screengrab of the text file I edited to create the web page you are looking at.  To a noncoder, it's a scary, bewildering-looking text file, but really, when you know what it's saying, what's being said is not that complex.  <br><br>So what parts of the vast domain of code are useful for journalists to know?  Well, I think it's useful for a young journalist to know how to browse the global junkyard of code, to know enough to find the parts and bolt them on to their own work.  Beyond that, I think there are three computer programming tasks that would be of immediate use to many journalists.  None of them are particularly difficult, and none of them would require a computer science degree, or so much time to learn that they may as well abandon writing and become a news apps developer.  They are: <ol><li>Scraping: writing or using a small script to grab data out of a web page or PDF.  Lots of public data is trapped in crappy websites or in PDFs. </li><li> Grabbing: learning how to write or use small scripts to grab data from the many thousands of APIs that are out there.  The New York Times alone has more than ten, including a wonderful one for congressional data and one for movie reviews.</li><li>Mapping.  Most news happens in a place.  Mapping is a very powerful visualization for journalists to be able to employ. </li></ol>"
+    
+    },
+    
+    {
+    "title": ""
+    ,"type": "image2"
+    ,"url": "http://dataforradicals.com/wp-content/uploads/2013/10/ssfl-sstory-code-1024x482.jpg"
+    ,"caption": "This is the text file I edited to create the web page you're looking at."
+},    
+
+{
+    "title": "<br><br> Better Places To Start"
+    ,"type": "text"
+    ,"url": "http://upload.wikimedia.org/wikipedia/commons/c/c1/SSFL_SRE_Facility_1958.jpg"
+    ,"text": "If you're interested in coding skills that are simple enough to learn that you don't have to give up on narrative journalism, and are actually relevant to your work as a journalist, here are some good starting points.<br><br>  I produce highly-illustrated, step-by-step tutorials for different types of digital and data journalism tasks.  The most popular of these is <a href =\"http://investigativenewsnetwork.org/2013/10/the-inn-guide-to-creating-a-data-driven-map-with-tilemill/\">The INN Guide To Building Your First Data-Driven Map with TileMill</a>.  You can also take a look at <a href =\"http://lifeandcode.tumblr.com/post/12205086953/life-and-codes-greatest-hits\">Life And Code's Greatest Hits</a>, which contains the Life And Code Resource Guide for Journalists. <br><br> -- Lisa Williams<br><br><a href =\"http://twitter.com/lisawilliams\">@lisawilliams</a></br></br>"
+    },
+
+
+// 
+// 
+// {
+// 	"title": "Now with slideshows!!"
+// 	,"type": "slideshow"
+// 	,"slides" : [
+// 		{
+// 			"url": "http://farm9.staticflickr.com/8305/8018534029_5d0ba3470d_b.jpg"
+// 			,"caption": "Test image 1"
+// 		},
+// 		{
+// 			"url": "http://farm9.staticflickr.com/8174/8018538728_68ddc70891_b.jpg"
+// 			,"caption": "Test image 2"
+// 		},
+// 		{
+// 			"url": "http://farm9.staticflickr.com/8311/8018538532_2fa9aff47c_b.jpg"
+// 		}
+// 	]
+// 
+// },
+// {
+//     "type": "image2"
+//     ,"url": "http://farm9.staticflickr.com/8157/6990386240_5b5a7a15a7_k.jpg"
+//     ,"shade": "dark"
+//     ,"caption": "If you don't include a title, you can have an image with just a caption."
+// },
+// {
+//     "type": "image3"
+//     ,"url": "http://farm8.staticflickr.com/7043/6990444744_7f6e372a70_k.jpg"
+//     ,"caption": "<h3>Include longer stories accompanying photos</h3> <p>Just provide the HTML. You can use headers and <em>any styling</em> you could <span style='color: red;'>possibly</span> imagine. consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p> <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><br /><h3>Uno, dos</h3><p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>"
+// },
+// {
+// 	"title": "Part 4 (Embedded Vimeo video)"
+// 	,"type": "vimeo"
+// 	,"url": "http://player.vimeo.com/video/50500145?badge=0"
+// 	,"height": "500px"
+//     ,"caption": "Here is a quick 3 minute demo video that shows how easy it is to create an sStory with the built-in story creator."
+// },
+// {
+//     "title": "You can also include soundcloud embeds"
+//     ,"type": "soundcloud"
+//     ,"embed": "<iframe width='100%' height='166' scrolling='no' frameborder='no' src='http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F37934185&amp;auto_play=false&amp;show_artwork=false&amp;color=000000'></iframe>"
+// },
+// {
+//     "title": "Timeline section (Verite timeline)"
+//     ,"type": "timeline"
+//     ,"url": "https://docs.google.com/spreadsheet/pub?key=0ApAkxBfw1JT4dFVxOEk0aGRxbk9URE9yeDJKMXNIS3c&output=html"
+// },
+// {
+// 	"title": "Test gist sStory section"
+// 	,"type": "gist"
+// 	,"url": "4138619"
+// }
+]
+
+$(document).ready(function(){
+	sStory(examplesections);
+
+	$("#section-1 h2").addClass("animated fadeInUp");
+
+
+	var tScrollorama = $.scrollorama({
+		blocks: '.section',
+		enablePin: false
+	});
+
+	tScrollorama.onBlockChange(function(){
+		var i=tScrollorama.blockIndex;
+	});
+
+	$(".slider").bxSlider({
+		infiniteLoop: false,
+  		hideControlOnEnd: true,
+  		useCSS: true,
+  		easing: 'ease-out',
+  		captions: true,
+  		speed: 900
+	})
+
+
+
+
+});
+</script>
+<!--
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+
+-->
+</body>
+</html>
